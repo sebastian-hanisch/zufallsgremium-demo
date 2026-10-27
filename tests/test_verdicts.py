@@ -55,13 +55,13 @@ def test_lowest_group():
 def test_verdict_for_the_default_preset():
     kind, text = ev.verdict_state(analyse("Achtzig Freiwillige, zehn Plätze"))
     assert kind == "success" and text == (
-        "Leximin: die kleinste Chance liegt bei 10,5 % (ideal bei Gleichheit: 12,5 %, also 84 % davon). Einfaches Ziehen mit Quoten: die kleinste Chance liegt bei 8,6 %, 18 % unter dem Leximin-Wert. "
+        "Leximin: die kleinste Chance liegt bei 10,5 % (ideal bei Gleichheit: 12,5 %, also 84 % davon). Einfaches Ziehen mit Quoten: die kleinste Chance liegt bei etwa 9,2 % (Schätzung), 12 % unter dem Leximin-Wert. "
         "Am schlechtesten stehen beim einfachen Ziehen im Mittel „55+“ (Alter) mit 9,7 %.")
 
 
 def test_verdict_for_the_four_person_example():
     kind, text = ev.verdict_state(analyse("Vier Freiwillige, zwei Plätze"))
-    assert kind == "success" and text.startswith("Leximin: die kleinste Chance liegt bei 50,0 % (ideal bei Gleichheit: 50,0 %, also 100 % davon). Einfaches Ziehen mit Quoten: die kleinste Chance liegt bei 37,")
+    assert kind == "success" and text.startswith("Leximin: die kleinste Chance liegt bei 50,0 % (ideal bei Gleichheit: 50,0 %, also 100 % davon). Einfaches Ziehen mit Quoten: die kleinste Chance liegt bei etwa 37,")
 
 
 def test_infeasible_pool_is_reported():
@@ -95,7 +95,7 @@ def _gain_rows():
 def test_verdict_series_gain():
     kind, text = ev.verdict_series_gain(_gain_rows())
     assert kind == "info" and text == ("Über 40 Pools hebt Leximin die kleinste Chance in 40 gegenüber dem einfachen Ziehen; bei verzerrten Meldungen im Mittel um 58 % bis 100 %. "
-                                       "Die ideale Chance k/n erreicht es nie ganz, weil die Quoten die Auswahl einengen.")
+                                       "Die ideale Chance k/n erreicht es nur, wenn die Quoten der Auswahl genug Raum lassen.")
 
 
 def _slack_rows():

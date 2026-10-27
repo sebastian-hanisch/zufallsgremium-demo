@@ -194,3 +194,22 @@ def test_sample_panel_draws_group_members_without_repetition():
     for seed in range(30):
         panel = A.sample_panel(lot, cells, of_person, seed)
         assert len(set(panel)) == 4 and A.panel_ok(pool, panel, 4, quotas)
+
+
+def test_greedy_probabilities_are_equal_for_people_with_the_same_categories():
+    pool = [(0, 0), (0, 0), (1, 1), (1, 1), (0, 1), (1, 0)]
+    quotas = A.make_quotas(((0.5, 0.5), (0.5, 0.5)), 3, 1)
+    probs, _ = A.greedy_probabilities(pool, 3, quotas, 400, 1)
+    assert probs[0] == probs[1] and probs[2] == probs[3]                                          # austauschbare Personen: derselbe Mittelwert
+    assert sum(probs) == pytest.approx(3.0)                                                        # die Mittelung ändert die Summe nicht: genau k Personen je Gremium
+
+
+def test_cell_averaging_leaves_the_minimum_closer_to_the_exact_value_than_single_estimates():
+    pool = [(0, 0)] * 4 + [(1, 1)] * 4
+    quotas = A.make_quotas(((0.5, 0.5), (0.5, 0.5)), 4, 1)
+    exact, _ = A.exact_greedy_probabilities(pool, 4, quotas)
+    errors = []
+    for seed in range(20):
+        probs, _ = A.greedy_probabilities(pool, 4, quotas, 100, seed)
+        errors.append(abs(min(probs) - float(min(exact))))
+    assert max(errors) < 0.12                                                                      # je Zelle gemittelt: Fehler des Minimums klein (Einzelschätzungen aus 100 Ziehungen streuen um etwa 0,05 je Person)

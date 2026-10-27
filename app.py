@@ -145,7 +145,7 @@ st.markdown("---")
 st.subheader("🔬 Feste Reihen")
 st.caption(
     f"Feste Programme, unabhängig von den Reglern: je Zeile {C.SERIES_RUNS} Zufallspools mit festen Zufalls-Seeds ({C.SERIES_N} Freiwillige, {C.SERIES_K} Plätze); das Los ist exakt gerechnet (Spaltengenerierung, HiGHS), "
-    "das einfache Ziehen aus je 800 gültigen Ziehungen geschätzt. Jede Reihe rechnet auf Klick bis zu einer Minute."
+    "das einfache Ziehen aus je 3.000 gültigen Ziehungen geschätzt. Jede Reihe rechnet auf Klick bis zu einer Minute."
 )
 tab1, tab2, tab3 = st.tabs(["Wie viel hebt Leximin?", "Was kosten die Quoten?", "Wer gewinnt, wer verliert?"])
 with tab1:
@@ -203,7 +203,7 @@ st.markdown(
 | **Gleiche Chance ist das Ziel** | Wer andere Ziele hat (zum Beispiel die Abbildung der Bevölkerung im Mittel über viele Lose), bewertet das Los anders; Leximin sagt nichts über die Qualität eines einzelnen Gremiums. | – |
 | **Wenige Merkmale, feste Quoten** | Die Quoten gelten je Merkmal einzeln, nicht für Kombinationen (junge Männer im Norden); mit vielen Merkmalen wird die Zahl der Gruppen groß, und manche Pools lassen kein zulässiges Gremium zu. | diese Demo (Reihe „Was kosten die Quoten?“) |
 | **Die Merkmale sind bekannt und ehrlich** | Die Demo glaubt die Angaben der Freiwilligen. | – |
-| **Das einfache Ziehen ist eine Schätzung** | Die Chancen kommen aus 3.000 Ziehungen und schwanken um etwa einen halben Prozentpunkt; echte Verfahren der Praxis sind komplizierter. | diese Demo (Gegenprobe durch Aufzählung bei kleinen Pools) |
+| **Das einfache Ziehen ist eine Schätzung** | Die Chancen kommen aus 3.000 Ziehungen, gemittelt über Personen mit denselben Kategorien; eine einzelne Chance schwankt um etwa einen halben Prozentpunkt, das Minimum über mehrere Gruppen liegt tendenziell eher darunter; echte Verfahren der Praxis sind komplizierter. | diese Demo (Gegenprobe durch Aufzählung bei kleinen Pools) |
 | **Personen derselben Gruppe sind austauschbar** | Das gilt hier, weil nur die Merkmale zählen; bei weiteren Unterschieden (Vorlieben, Verfügbarkeit) müsste auf Personen gerechnet werden. | – |
 | **Modell, kein Befund über Bürgerräte** | Die Zahlen sagen, was die Rechnung für erzeugte oder eingegebene Pools liefert, nicht, wie ein bestimmter Verein losen sollte. | – |
 """

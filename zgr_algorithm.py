@@ -143,7 +143,7 @@ def greedy_panel(pool, order, k, quotas):
 
 
 def greedy_probabilities(pool, k, quotas, draws, seed, max_tries=200):
-    """Auswahlwahrscheinlichkeiten des einfachen Ziehens, geschätzt aus `draws` gültigen Ziehungen (ungültige Reihenfolgen werden verworfen); Rückgabe (Liste je Person, Zahl der Versuche)."""
+    """Auswahlwahrscheinlichkeiten des einfachen Ziehens, geschätzt aus `draws` gültigen Ziehungen (ungültige Reihenfolgen werden verworfen) und gemittelt über Personen mit denselben Kategorien (sie sind austauschbar; das Minimum über verrauschte Einzelschätzungen läge sonst systematisch zu tief); Rückgabe (Liste je Person, Zahl der Versuche)."""
     rng = np.random.default_rng(seed)
     n = len(pool)
     counts = np.zeros(n)
@@ -157,7 +157,13 @@ def greedy_probabilities(pool, k, quotas, draws, seed, max_tries=200):
                 counts[i] += 1
     if got == 0:
         raise ValueError("Das einfache Ziehen findet kein gültiges Gremium")
-    return list(counts / got), tries
+    rates = counts / got
+    groups = {}
+    for i, person in enumerate(pool):
+        groups.setdefault(tuple(person), []).append(i)
+    for members in groups.values():                     # Personen mit denselben Kategorien sind austauschbar: ihre Wahrscheinlichkeit ist gleich, der Mittelwert über sie senkt das Rauschen
+        rates[members] = rates[members].mean()
+    return list(rates), tries
 
 
 def exact_greedy_probabilities(pool, k, quotas):

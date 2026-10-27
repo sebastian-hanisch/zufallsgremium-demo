@@ -158,7 +158,7 @@ def verdict_state(a: Analysis):
     """Kernfrage: wie gleich sind die Chancen? Rückgabe (st-Methode, Text)."""
     low_l, low_s = min(a.leximin), min(a.simple)
     text = (f"Leximin: die kleinste Chance liegt bei {pct(low_l)} (ideal bei Gleichheit: {pct(a.ideal)}, also {pct(low_l / a.ideal, 0)} davon). "
-            f"Einfaches Ziehen mit Quoten: die kleinste Chance liegt bei {pct(low_s)}, {pct(1 - low_s / low_l, 0)} unter dem Leximin-Wert.")
+            f"Einfaches Ziehen mit Quoten: die kleinste Chance liegt bei etwa {pct(low_s)} (Schätzung), {pct(1 - low_s / low_l, 0)} unter dem Leximin-Wert.")
     fname, cat, m = lowest_group(a, "einfach")
     text += f" Am schlechtesten stehen beim einfachen Ziehen im Mittel „{cat}“ ({fname}) mit {pct(m)}."
     return ("success" if low_l >= low_s - 1e-9 else "warning"), text
@@ -170,7 +170,7 @@ def verdict_series_gain(rows):
     tot = sum(r["runs"] for r in rows)
     gain = [r["leximin_min"] / r["simple_min"] - 1 for r in rows if r["bias"] > 0]
     text = (f"Über {tot:,} Pools".replace(",", ".") + f" hebt Leximin die kleinste Chance in {worse} gegenüber dem einfachen Ziehen; bei verzerrten Meldungen im Mittel um {pct(min(gain), 0)} bis {pct(max(gain), 0)}. "
-            "Die ideale Chance k/n erreicht es nie ganz, weil die Quoten die Auswahl einengen.")
+            "Die ideale Chance k/n erreicht es nur, wenn die Quoten der Auswahl genug Raum lassen.")
     return "info", text
 
 

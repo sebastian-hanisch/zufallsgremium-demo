@@ -32,32 +32,32 @@ def row(rows, **kw):
 # --- Reihe 1: wie viel hebt Leximin? ----------------------------------------------------------------------------------------------------------
 
 def test_smallest_chance_per_bias(gain):
-    expected = {0: (0.09964, 0.06438), 30: (0.0959, 0.05975), 60: (0.08393, 0.04863), 90: (0.07223, 0.04175)}
+    expected = {0: (0.09964, 0.08119), 30: (0.0959, 0.07799), 60: (0.08393, 0.0659), 90: (0.07223, 0.05707)}
     for bias, (lx, sm) in expected.items():
         r = row(gain, bias=bias)
         assert r["leximin_min"] == pytest.approx(lx, abs=EXACT_TOL) and r["simple_min"] == pytest.approx(sm, abs=SIMPLE_TOL), bias
         assert r["runs"] == 10 and r["skipped"] == 0 and r["better"] == 10 and r["ideal"] == pytest.approx(0.1)
 
 
-def test_leximin_beats_simple_drawing_in_every_pool_and_never_reaches_the_ideal(gain):
+def test_leximin_beats_simple_drawing_in_every_pool_and_stays_below_the_ideal(gain):
     assert all(r["better"] == r["runs"] and r["leximin_min"] <= r["ideal"] + 1e-9 for r in gain)
     assert [r["leximin_min"] for r in gain] == sorted((r["leximin_min"] for r in gain), reverse=True)        # mehr Verzerrung, kleinere beste Chance
 
 
 def test_readme_strings_of_the_first_series(gain):
     assert [ev.pct(r["leximin_min"]) for r in gain] == ["10,0 %", "9,6 %", "8,4 %", "7,2 %"]
-    assert [ev.pct(r["simple_min"]) for r in gain] == ["6,4 %", "6,0 %", "4,9 %", "4,2 %"]
+    assert [ev.pct(r["simple_min"]) for r in gain] == ["8,1 %", "7,8 %", "6,6 %", "5,7 %"]
     gains = [r["leximin_min"] / r["simple_min"] - 1 for r in gain]
-    assert (ev.pct(min(gains), 0), ev.pct(max(gains), 0)) == ("55 %", "73 %")                       # „um 55 bis 73 %“ in der README
+    assert (ev.pct(min(gains), 0), ev.pct(max(gains), 0)) == ("23 %", "27 %")                       # „um etwa 23 bis 27 %“ in der README
 
 
 def test_gain_verdict_and_table(gain):
     kind, text = ev.verdict_series_gain(gain)
-    assert text == ("Über 40 Pools hebt Leximin die kleinste Chance in 40 gegenüber dem einfachen Ziehen; bei verzerrten Meldungen im Mittel um 60 % bis 73 %. "
-                    "Die ideale Chance k/n erreicht es nie ganz, weil die Quoten die Auswahl einengen.")
+    assert text == ("Über 40 Pools hebt Leximin die kleinste Chance in 40 gegenüber dem einfachen Ziehen; bei verzerrten Meldungen im Mittel um 23 % bis 27 %. "
+                    "Die ideale Chance k/n erreicht es nur, wenn die Quoten der Auswahl genug Raum lassen.")
     t = ev.gain_table(gain)
-    assert t[0] == {"Verzerrung": "0 %", "Freiwillige": 100, "Pools": "10 (ausgelassen: 0)", "ideal k/n": "10,0 %", "Leximin: kleinste Chance": "10,0 %", "Einfaches Ziehen: kleinste Chance": "6,4 %", "Leximin besser in": "10 von 10"}
-    assert t[3]["Leximin: kleinste Chance"] == "7,2 %" and t[3]["Einfaches Ziehen: kleinste Chance"] == "4,2 %"
+    assert t[0] == {"Verzerrung": "0 %", "Freiwillige": 100, "Pools": "10 (ausgelassen: 0)", "ideal k/n": "10,0 %", "Leximin: kleinste Chance": "10,0 %", "Einfaches Ziehen: kleinste Chance": "8,1 %", "Leximin besser in": "10 von 10"}
+    assert t[3]["Leximin: kleinste Chance"] == "7,2 %" and t[3]["Einfaches Ziehen: kleinste Chance"] == "5,7 %"
 
 
 # --- Reihe 2: Preis der Quoten -----------------------------------------------------------------------------------------------------------------

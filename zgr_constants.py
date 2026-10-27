@@ -37,7 +37,7 @@ COLOR_ALERT = "#c0392b"
 # Feste Reihen (Zufallspools mit festen Zufalls-Seeds)
 SERIES_SEED = 400000
 SERIES_RUNS = 10
-SERIES_DRAWS = 800
+SERIES_DRAWS = 3000
 SERIES_BIASES = (0, 30, 60, 90)
 SERIES_N = 100
 SERIES_SLACKS = (0, 1, 2)
@@ -65,9 +65,9 @@ PRESETS = {
 }
 PRESET_HELP = {
     "Achtzig Freiwillige, zehn Plätze": "Voreinstellung: 80 Freiwillige, zehn Plätze, Quoten für Geschlecht, Alter und Region mit einem Platz Spielraum; Frauen, Ältere und der Norden melden sich häufiger.",
-    "Starke Verzerrung": "Die Meldungen sind stark verzerrt (90 %): die kleinste Chance sinkt beim einfachen Ziehen auf 5,8 %, Leximin hält 8,2 % (ideal k/n wären 12,0 %).",
-    "Ohne Verzerrung": "Die Freiwilligen spiegeln die Bevölkerung: Leximin erreicht für alle die ideale Chance k/n = 12,5 %; das einfache Ziehen lässt die kleinste Chance trotzdem auf 8,9 % fallen, weil die Quoten die Chancen ungleich machen.",
-    "Strenge Quoten": "Ohne Spielraum (genau abgerundet oder aufgerundet) werden die Quoten zur Fessel: die kleinste Leximin-Chance fällt auf 7,9 % (63 % der idealen), das einfache Ziehen liegt bei 6,2 %.",
-    "Kleiner Pool": "Nur 30 Freiwillige für zwölf Plätze: manche Gruppen sind so schwach vertreten, dass ihre Mitglieder in jedem zulässigen Gremium sitzen (Chance 100 %); die kleinste Chance liegt bei Leximin bei 35,7 %, beim einfachen Ziehen bei 28,6 %.",
+    "Starke Verzerrung": "Die Meldungen sind stark verzerrt (90 %): die kleinste Chance sinkt beim einfachen Ziehen auf etwa 6,7 %, Leximin hält 8,2 % (ideal k/n wären 12,0 %).",
+    "Ohne Verzerrung": "Die Freiwilligen spiegeln die Bevölkerung: Leximin erreicht für alle die ideale Chance k/n = 12,5 %; das einfache Ziehen lässt die kleinste Chance trotzdem auf etwa 9,1 % fallen, weil die Quoten die Chancen ungleich machen.",
+    "Strenge Quoten": "Ohne Spielraum (genau abgerundet oder aufgerundet) werden die Quoten zur Fessel: die kleinste Leximin-Chance fällt auf 7,9 % (63 % der idealen), das einfache Ziehen liegt bei etwa 7,3 %.",
+    "Kleiner Pool": "Nur 30 Freiwillige für zwölf Plätze: manche Gruppen sind so schwach vertreten, dass ihre Mitglieder in jedem zulässigen Gremium sitzen (Chance 100 %); die kleinste Chance liegt bei Leximin bei 35,7 %, beim einfachen Ziehen bei etwa 30,5 %.",
     "Vier Freiwillige, zwei Plätze": "Eine Frau und ein Mann, die sich in Alter und Region unterscheiden: zulässig sind nur drei Paare. Leximin gibt jedem genau die Chance 1/2; beim einfachen Ziehen sind die Chancen ungleich: 3/8 und 5/8 (zwei Personen kommen in zwei zulässigen Paaren vor, zwei nur in einem).",
 }

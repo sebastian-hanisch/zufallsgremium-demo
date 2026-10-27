@@ -79,27 +79,27 @@ def test_presets_are_feasible_and_have_no_errors():
 
 def test_default_preset_help():
     a = analyse(FIRST)
-    assert a.n == 80 and a.k == 10 and ev.pct(min(a.leximin)) == "10,5 %" and ev.pct(min(a.simple)) == "8,6 %"
+    assert a.n == 80 and a.k == 10 and ev.pct(min(a.leximin)) == "10,5 %" and ev.pct(min(a.simple)) == "9,2 %"
 
 
 def test_strong_bias_preset_help():
     a = analyse("Starke Verzerrung")
-    assert ev.pct(min(a.leximin)) == "8,2 %" and ev.pct(min(a.simple)) == "5,8 %" and ev.pct(a.ideal) == "12,0 %"
+    assert ev.pct(min(a.leximin)) == "8,2 %" and ev.pct(min(a.simple)) == "6,7 %" and ev.pct(a.ideal) == "12,0 %"
 
 
 def test_no_bias_preset_help():
     a = analyse("Ohne Verzerrung")
-    assert all(x == pytest.approx(0.125, abs=1e-8) for x in a.leximin) and ev.pct(min(a.simple)) == "8,9 %"
+    assert all(x == pytest.approx(0.125, abs=1e-8) for x in a.leximin) and ev.pct(min(a.simple)) == "9,1 %"
 
 
 def test_strict_quotas_preset_help():
     a = analyse("Strenge Quoten")
-    assert ev.pct(min(a.leximin)) == "7,9 %" and ev.pct(min(a.leximin) / a.ideal, 0) == "63 %" and ev.pct(min(a.simple)) == "6,2 %"
+    assert ev.pct(min(a.leximin)) == "7,9 %" and ev.pct(min(a.leximin) / a.ideal, 0) == "63 %" and ev.pct(min(a.simple)) == "7,3 %"
 
 
 def test_small_pool_preset_help():
     a = analyse("Kleiner Pool")
-    assert max(a.leximin) == pytest.approx(1.0, abs=1e-8) and ev.pct(min(a.leximin)) == "35,7 %" and ev.pct(min(a.simple)) == "28,6 %"
+    assert max(a.leximin) == pytest.approx(1.0, abs=1e-8) and ev.pct(min(a.leximin)) == "35,7 %" and ev.pct(min(a.simple)) == "30,5 %"
 
 
 def test_four_person_preset_help():
