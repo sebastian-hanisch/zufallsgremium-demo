@@ -52,9 +52,11 @@ def _constraints(cells, counts, k, quotas):
 def best_vector(cells, counts, k, quotas, weights):
     """Zulässiger Mengenvektor (Mitglieder je Zelle) mit der größten gewichteten Summe; None, wenn es keinen gibt. Gleichstände entscheidet der Löser."""
     nc = len(cells)
-    res = milp(-np.array(weights, dtype=float), constraints=[_constraints(cells, counts, k, quotas)], integrality=np.ones(nc), bounds=Bounds(0, counts))
-    if res.status != 0:
+    res = milp(-np.array(weights, dtype=float), constraints=[_constraints(cells, counts, k, quotas)], integrality=np.ones(nc), bounds=Bounds(0, counts), options={"mip_rel_gap": 0.0})
+    if res.status == 2:
         return None
+    if res.status != 0:
+        raise RuntimeError(f"Gremium-MILP nicht gelöst: {res.message}")
     return tuple(int(round(x)) for x in res.x), float(-res.fun)
 
 
